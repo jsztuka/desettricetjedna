@@ -26,4 +26,4 @@ jobs:
     
      - name: Get latest clamav version and compare
        run: |
-          apt search clamav
+          apt-chache search clamscan
