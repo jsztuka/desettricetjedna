@@ -26,4 +26,4 @@ jobs:
     
      - name: Get latest clamav version and compare
        run: |
-         microdnf repoquery clamav
+         apt list clamav
