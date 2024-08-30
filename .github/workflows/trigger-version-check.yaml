@@ -26,4 +26,4 @@ jobs:
     
      - name: Get latest clamav version and compare
        run: |
-          apt search clamscan
+         podman run --rm -t --entrypoint="/usr/bin/microdnf" quay.io/redhat-appstudio/konflux-test:latest repoquery clamav
