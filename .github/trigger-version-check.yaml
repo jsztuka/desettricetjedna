@@ -1,0 +1,26 @@
+name: Trigger version check for clamav binary
+# This workflow checks periodically for newer
+# version of clamav 
+
+on:
+  pull_request:
+   types: [opened, reopened]
+
+env:
+  CURRENT_VERSION: 0.0.0 # building from main
+
+# pull the goddamn image and check the version of clamav - store it in CURRENT_VERSION env var
+# use microdnf to check what is the latest version for clamav prodived
+# compare those two versions
+# if newer > build new image
+# if same > inform about such fact and move on with life
+jobs:
+  test:
+    name: Pull latest konflux-test img
+    runs-on: ubuntu-20.04
+
+    steps:
+     - name: Get Clair version
+          run: |podman pull quay.io/redhat-appstudio/konflux-test:latest
+            podman run --rm -t --entrypoint="/usr/bin/clamscan" quay.io/redhat-appstudio/konflux-test:latest --version
+      
