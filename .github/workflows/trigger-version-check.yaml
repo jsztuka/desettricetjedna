@@ -23,3 +23,7 @@ jobs:
      - name: Get Clair version
        run: |
          podman run --rm -t --entrypoint="/usr/bin/clamscan" quay.io/redhat-appstudio/konflux-test:latest --version
+    
+     - name: Get latest clamav version and compare
+       run: |
+         microdnf repoquery clamav
