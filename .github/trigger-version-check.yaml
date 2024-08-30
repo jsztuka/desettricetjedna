@@ -4,7 +4,7 @@ name: Trigger version check for clamav binary
 
 on:
   pull_request:
-   types: [opened, reopened]
+    types: [opened, reopened]
 
 env:
   CURRENT_VERSION: 0.0.0 # building from main
@@ -21,6 +21,6 @@ jobs:
 
     steps:
      - name: Get Clair version
-          run: |podman pull quay.io/redhat-appstudio/konflux-test:latest
+          run: |
             podman run --rm -t --entrypoint="/usr/bin/clamscan" quay.io/redhat-appstudio/konflux-test:latest --version
       
