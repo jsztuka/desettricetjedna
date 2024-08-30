@@ -24,9 +24,6 @@ jobs:
        run: |
          podman run --rm -t --entrypoint="/usr/bin/clamscan" quay.io/redhat-appstudio/konflux-test:latest --version
     
-     - name: install microdnf
-       run: |
-         apt install microdnf
      - name: Get latest clamav version and compare
        run: |
-         microdnf
+          apt search clamav
