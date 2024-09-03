@@ -45,6 +45,9 @@ jobs:
          latestRelease=$(curl -s https://api.github.com/repos/konflux-ci/konflux-test/releases/latest | jq '.name')
          
          latestRelUpdated=$(echo $latestRelease | sed 's/[^0-9]*//g')
+         # increment release version and format it correctly
+         (($latestRelUpdated++))
+         latestRelUpdated=$(echo "$latestRelUpdated" | sed 's/[0-9]\B/&./g')
          echo "$latestRelUpdated"
          echo "$ver1"
          echo "$ver2"
