@@ -1,4 +1,4 @@
 Ahoj kamarade, zde najdes jedine utrpeni. UTIKEJ!
 
 
-war never changes
+war never changes "Hellboy"
