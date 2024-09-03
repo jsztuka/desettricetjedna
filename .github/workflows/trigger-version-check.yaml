@@ -35,11 +35,16 @@ jobs:
           exit 1
          fi
 
-         echo "$availVer"
-         echo "${{ steps.vars.outputs.currentVer}}"
-
+         # parse versions for comparison
          ver1=$(echo $availVer | sed 's/[^0-9]*//g')
          ver2=$(echo ${{ steps.vars.outputs.currentVer}} | sed 's/[^0-9]*//g')
 
+         # compare versions, in case of newer version create a new release
+
+         # get latest release of konflux-test
+         latestRelease=$(curl -s https://api.github.com/repos/konflux-ci/konflux-test/releases/latest | jq '.name')
+         
+         latestRelUpdated=$(echo $latestRelease | sed 's/[^0-9]*//g')
+         echo "$latestRelUpdated"
          echo "$ver1"
          echo "$ver2"
