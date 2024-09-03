@@ -34,5 +34,12 @@ jobs:
           echo "There was an issue getting clamav package version."
           exit 1
          fi
+
          echo "$availVer"
          echo "${{ steps.vars.outputs.currentVer}}"
+
+         ver1=$(echo $availVer | sed 's/[^0-9]*//g')
+         ver2=$(echo ${{ steps.vars.outputs.currentVer}} | sed 's/[^0-9]*//g')
+
+         echo $ver1
+         echo $ver2
