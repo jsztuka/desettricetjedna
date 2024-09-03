@@ -46,7 +46,7 @@ jobs:
          
          latestRelUpdated=$(echo $latestRelease | sed 's/[^0-9]*//g')
          # increment release version and format it correctly
-         (($latestRelUpdated++))
+         ((latestRelUpdated++))
          latestRelUpdated=$(echo "$latestRelUpdated" | sed 's/[0-9]\B/&./g')
          echo "$latestRelUpdated"
          echo "$ver1"
