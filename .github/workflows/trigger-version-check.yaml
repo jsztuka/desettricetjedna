@@ -6,8 +6,6 @@ on:
   pull_request:
     types: [opened, reopened]
 
-env:
-  CURRENT_VERSION: 0.0.0 # building from main
 
 # pull the goddamn image and check the version of clamav - store it in CURRENT_VERSION env var
 # use microdnf to check what is the latest version for clamav prodived
@@ -21,13 +19,14 @@ jobs:
 
     steps:
      - name: Get Clair version
+       id: vars
        run: |
-         echo 'CURRENT_VERSION=$(podman run --rm -t --entrypoint="/usr/bin/clamscan" quay.io/redhat-appstudio/konflux-test:latest --version)' >> $GITHUB_ENV
+         echo "currentVer=$(podman run --rm -t --entrypoint='/usr/bin/clamscan' quay.io/redhat-appstudio/konflux-test:latest --version)" >> $GITHUB_OUTPUT
          if [ $? != 0 ]; then
           echo "There was an issue getting current clamav version from konflux-test image."
           exit 1
          fi
-         echo $CURRENT_VERSION
+         echo $currentVer
     
      - name: Get latest clamav rpm version and compare
        run: |
@@ -37,3 +36,4 @@ jobs:
           exit 1
          fi
          echo "$availVer"
+         echo "${{ steps.vars.outputs.currentVer}}"
