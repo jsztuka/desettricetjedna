@@ -22,8 +22,16 @@ jobs:
     steps:
      - name: Get Clair version
        run: |
-         podman run --rm -t --entrypoint="/usr/bin/clamscan" quay.io/redhat-appstudio/konflux-test:latest --version
+         CURRENT_VERSION=$(podman run --rm -t --entrypoint="/usr/bin/clamscan" quay.io/redhat-appstudio/konflux-test:latest --version)
+         if [$? != 0]; then
+          echo "There was an issue getting current clamav version from konflux-test image."
+          exit 1
+         fi
     
-     - name: Get latest clamav version and compare
+     - name: Get latest clamav rpm version and compare
        run: |
-         podman run --rm -t --entrypoint="/usr/bin/microdnf" quay.io/redhat-appstudio/konflux-test:latest repoquery clamav
+         availVer=$(podman run --rm -t --entrypoint="/usr/bin/rpm" quay.io/redhat-appstudio/konflux-test:latest --queryformat "%{VERSION}" -q clamav)
+         if [$? != 0]; then
+          echo "There was an issue getting clamav package version."
+          exit 1
+         fi
