@@ -21,7 +21,7 @@ jobs:
      - name: Get Clair version
        id: vars
        run: |
-         echo "currentVer=$(podman run --rm -t --entrypoint='/usr/bin/clamscan' quay.io/redhat-appstudio/konflux-test:latest --version) | sed 's/[^0-9]*//g'" >> $GITHUB_OUTPUT
+         echo "currentVer=$(podman run --rm -t --entrypoint='/usr/bin/clamscan' quay.io/redhat-appstudio/konflux-test:latest --version)" >> $GITHUB_OUTPUT
          if [ $? != 0 ]; then
           echo "There was an issue getting current clamav version from konflux-test image."
           exit 1
@@ -29,7 +29,7 @@ jobs:
     
      - name: Get latest clamav rpm version and compare
        run: |
-         availVer=$(podman run --rm -t --entrypoint="/usr/bin/rpm" quay.io/redhat-appstudio/konflux-test:latest --queryformat "%{VERSION}" -q clamav) | sed 's/[^0-9]*//g'
+         availVer=$(podman run --rm -t --entrypoint="/usr/bin/rpm" quay.io/redhat-appstudio/konflux-test:latest --queryformat "%{VERSION}" -q clamav)
          if [ $? != 0 ]; then
           echo "There was an issue getting clamav package version."
           exit 1
