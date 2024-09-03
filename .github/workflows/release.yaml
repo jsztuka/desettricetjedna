@@ -9,7 +9,7 @@ on:
         description: 'Branch to release from'
         required: true
         default: 'main'
-  repository-dispatch:
+  repository_dispatch:
     types: trigger-workflow
     inputs:
       release-version:
